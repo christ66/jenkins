@@ -28,6 +28,7 @@ import hudson.DescriptorExtensionList;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.ExtensionPoint;
+import hudson.Util;
 import hudson.diagnosis.OldDataMonitor;
 import hudson.model.*;
 import hudson.slaves.NodeSpecific;
@@ -91,11 +92,19 @@ public abstract class ToolInstallation extends AbstractDescribableImpl<ToolInsta
      *      as of 1.302. Use {@link #ToolInstallation(String, String, List)} 
      */
     public ToolInstallation(String name, String home) {
+        if (Util.fixEmptyAndTrim(name) == null) {
+            throw new IllegalArgumentException("Name for tool can not be null or empty");
+        }
+
         this.name = name;
         this.home = home;
     }
 
     public ToolInstallation(String name, String home, List<? extends ToolProperty<?>> properties) {
+        if (Util.fixEmptyAndTrim(name) == null) {
+            throw new IllegalArgumentException("Name for tool can not be null or empty");
+        }
+        
         this.name = name;
         this.home = home;
         if(properties!=null) {

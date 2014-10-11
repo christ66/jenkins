@@ -182,6 +182,15 @@ public class JDKInstallerTest extends HudsonTestCase {
             bundle.delete();
         }
     }
-
+    
+    public void testNullJDKName() throws Exception {
+        try {
+            jenkins.getJDKs().add(new JDK(null, null));
+            fail("Expected: Illegal Argument Exception when name is null.");
+        } catch (IllegalArgumentException e) {
+            // Expected.
+        }
+    }
+    
     private static final Logger LOGGER = Logger.getLogger(JDKInstallerTest.class.getName());
 }
